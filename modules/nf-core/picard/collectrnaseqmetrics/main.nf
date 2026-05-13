@@ -1,6 +1,6 @@
 process PICARD_COLLECTRNASEQMETRICS {
     tag "$meta.id"
-    label 'process_single'
+    label 'process_medium'
 
     conda "${moduleDir}/environment.yml"
     container "picard_3.3.0--hdfd78af_0"

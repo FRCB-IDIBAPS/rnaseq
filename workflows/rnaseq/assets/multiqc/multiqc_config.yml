@@ -97,7 +97,6 @@ run_modules:
   - rseqc
   - qualimap
   - kraken
-  - bracken
 
 # Order of modules
 
@@ -162,9 +161,6 @@ sp:
     fn: "*.idxstats*"
 
   kraken:
-    fn: "*report.txt"
-
-  bracken:
     fn: "*.kraken2.report_bracken.txt"
 
   rseqc/bam_stat:

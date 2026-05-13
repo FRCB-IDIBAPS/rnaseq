@@ -1,6 +1,6 @@
 process SORTMERNA {
     tag "$meta.id"
-    label 'process_high'
+    label 'process_high_memory'
 
     conda "${moduleDir}/environment.yml"
     container 'nf-core/sortmerna:4.3.7--6502243397c065ba'
