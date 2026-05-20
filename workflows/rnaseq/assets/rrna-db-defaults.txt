@@ -1,8 +1,1 @@
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/rfam-5.8s-database-id98.fasta
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/rfam-5s-database-id98.fasta
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/silva-arc-16s-id95.fasta
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/silva-arc-23s-id98.fasta
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/silva-bac-16s-id90.fasta
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/silva-bac-23s-id98.fasta
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/silva-euk-18s-id95.fasta
-/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/silva-euk-28s-id98.fasta
+/gpfs/projects/idib57/Recursos/pipelines/rnaseq/assets/sortmerna/smr_v4.3_fast_db.fasta.gz
