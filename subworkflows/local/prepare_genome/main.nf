@@ -137,7 +137,7 @@ workflow PREPARE_GENOME {
                 ? ch_fasta.map { item -> [ [id: 'genome'], item ] }
                 : channel.value([ [id: 'no_fasta'], [] ])
         )
-        ch_gtf      = CUSTOM_GTFFILTER.out.gtf.map { _meta, filtered_gtf -> filtered_gtf }.first()
+        ch_gtf      = CUSTOM_GTFFILTER.out.gtf.map { _meta, filtered_gtf -> filtered_gtf }
     }
 
     //
@@ -174,8 +174,8 @@ workflow PREPARE_GENOME {
             ch_add_fasta.map { item -> [ [id: 'genome_transcriptome'], item ] },
             gencode ? "gene_type" : featurecounts_group_type
         )
-        ch_fasta    = CUSTOM_CATADDITIONALFASTA.out.fasta.map { tuple -> tuple[1] }.first()
-        ch_gtf      = CUSTOM_CATADDITIONALFASTA.out.gtf.map { tuple -> tuple[1] }.first()
+        ch_fasta    = CUSTOM_CATADDITIONALFASTA.out.fasta.map { tuple -> tuple[1] }
+        ch_gtf      = CUSTOM_CATADDITIONALFASTA.out.gtf.map { tuple -> tuple[1] }
     }
 
     //------------------------------------------------------
@@ -226,7 +226,7 @@ workflow PREPARE_GENOME {
                 ch_gtf.map { gtf_file -> [ [id: 'transcripts'], gtf_file ] },
                 ch_fasta
             )
-            ch_transcript_fasta = GFFREAD_TRANSCRIPTS.out.gffread_fasta.map { meta, fasta_file -> fasta_file }
+            ch_transcript_fasta = GFFREAD_TRANSCRIPTS.out.gffread_fasta.map { _meta, fasta_file -> fasta_file }
         } else if (use_sentieon_star) {
             // Build transcripts from genome if we have it
             ch_transcript_fasta = SENTIEON_MAKE_TRANSCRIPTS_FASTA(ch_fasta, ch_gtf).transcript_fasta
@@ -331,7 +331,7 @@ workflow PREPARE_GENOME {
                 ch_rrna_fastas.collect().map { refs -> [ 'rrna_refs', refs ] },
                 channel.of([ [], [] ])
             )
-            ch_sortmerna_index = SORTMERNA_INDEX.out.index.first()
+            ch_sortmerna_index = SORTMERNA_INDEX.out.index
         }
     }
 
@@ -427,7 +427,7 @@ workflow PREPARE_GENOME {
     if ('bowtie2_salmon' in prepare_tool_indices) {
         if (bowtie2_index) {
             if (bowtie2_index.endsWith('.tar.gz')) {
-                ch_bowtie2_index = UNTAR_BOWTIE2_INDEX ([ [:], file(bowtie2_index, checkIfExists: true) ]).untar.map { meta, index -> index }
+                ch_bowtie2_index = UNTAR_BOWTIE2_INDEX ([ [:], file(bowtie2_index, checkIfExists: true) ]).untar.map { _meta, index -> index }
             } else {
                 ch_bowtie2_index = channel.value(file(bowtie2_index, checkIfExists: true))
             }
@@ -437,7 +437,7 @@ workflow PREPARE_GENOME {
             BOWTIE2_BUILD(
                 ch_transcript_fasta.map { fasta_file -> [ [id: 'transcripts'], fasta_file ] }
             )
-            ch_bowtie2_index = BOWTIE2_BUILD.out.index.map { meta, index -> index }
+            ch_bowtie2_index = BOWTIE2_BUILD.out.index.map { _meta, index -> index }
         }
     }
 

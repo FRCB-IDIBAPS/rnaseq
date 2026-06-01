@@ -68,7 +68,7 @@ workflow FASTQ_REMOVE_RRNA {
                 ch_sortmerna_fastas,
                 [[], []],
             )
-            ch_sortmerna_index = SORTMERNA_INDEX.out.index.first()
+            ch_sortmerna_index = SORTMERNA_INDEX.out.index
         }
 
         SORTMERNA(
@@ -144,7 +144,7 @@ workflow FASTQ_REMOVE_RRNA {
             BOWTIE2_BUILD(
                 ch_combined_fasta
             )
-            ch_bowtie2_index = BOWTIE2_BUILD.out.index.first()
+            ch_bowtie2_index = BOWTIE2_BUILD.out.index
             ch_bowtie2_index_out = BOWTIE2_BUILD.out.index
         }
 

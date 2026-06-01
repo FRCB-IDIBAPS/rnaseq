@@ -380,7 +380,6 @@ workflow FASTQ_QC_TRIM_FILTER_SETSTRANDEDNESS {
     ch_fasta
         .combine(ch_strand_fastq.auto_strand)
         .map { items -> items.first() }
-        .first()
         .set { ch_genome_fasta }
 
     FASTQ_SUBSAMPLE_FQ_SALMON(
