@@ -732,12 +732,34 @@
                 }
             }
         },
+        "fusion_detection_options": {
+            "title": "Fusion detection options",
+            "type": "object",
+            "fa_icon": "fas fa-random",
+            "description": "Options for fusion gene detection.",
+            "properties": {
+                "fusioncatcher_db": {
+                    "type": "string",
+                    "format": "path",
+                    "description": "Path to the FusionCatcher reference database directory.",
+                    "help_text": "Pre-built FusionCatcher reference data directory. Required when --skip_fusioncatcher is false. Download from https://sourceforge.net/projects/fusioncatcher/files/data/.",
+                    "fa_icon": "fas fa-database"
+                }
+            }
+        },
         "process_skipping_options": {
             "title": "Process skipping options",
             "type": "object",
             "fa_icon": "fas fa-fast-forward",
             "description": "Options to skip various steps within the workflow.",
             "properties": {
+                "skip_fusioncatcher": {
+                    "type": "boolean",
+                    "default": true,
+                    "fa_icon": "fas fa-fast-forward",
+                    "description": "Skip fusion gene detection with FusionCatcher.",
+                    "help_text": "Set to false and provide --fusioncatcher_db to enable fusion gene detection."
+                },
                 "skip_gtf_filter": {
                     "type": "boolean",
                     "fa_icon": "fas fa-forward",
