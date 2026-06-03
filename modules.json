@@ -94,6 +94,11 @@
                         "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
                         "installed_by": ["fastq_subsample_fq_salmon", "modules"]
                     },
+                    "fusioncatcher/fusioncatcher": {
+                        "branch": "master",
+                        "git_sha": "4269eb9159704b1dcde932616c22ca1a05c8c0b5",
+                        "installed_by": ["modules"]
+                    },
                     "gffread": {
                         "branch": "master",
                         "git_sha": "c9ad4d691aa339e478a77847e3ef854ccd21778b",
@@ -143,6 +148,11 @@
                         "branch": "master",
                         "git_sha": "3e0ec6464725c64d81abe928e15a6750d5fdd272",
                         "installed_by": ["modules"]
+                    },
+                    "picard/collectrnaseqmetrics": {
+                        "branch": "master",
+                        "git_sha": "6d46786420b4d7bc88eba026eb389c0c5535d120",
+                        "installed_by": ["bam_markduplicates_picard"]
                     },
                     "picard/markduplicates": {
                         "branch": "master",

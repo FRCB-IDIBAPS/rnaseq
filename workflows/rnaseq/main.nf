@@ -35,6 +35,7 @@ include { mapBamToPublishedPath          } from '../../subworkflows/local/utils_
 //
 // MODULE: Installed directly from nf-core/modules
 //
+include { FUSIONCATCHER_FUSIONCATCHER } from '../../modules/nf-core/fusioncatcher/fusioncatcher/main'
 include { STRINGTIE_STRINGTIE        } from '../../modules/nf-core/stringtie/stringtie'
 include { KRAKEN2_KRAKEN2 as KRAKEN2 } from '../../modules/nf-core/kraken2/kraken2/main'
 include { BRACKEN_BRACKEN as BRACKEN } from '../../modules/nf-core/bracken/bracken/main'
@@ -267,6 +268,17 @@ workflow RNASEQ {
             meta, num_reads ->
                 return [ meta.id, num_reads > params.min_trimmed_reads.toFloat() ]
         }
+
+    //
+    // MODULE: Fusion gene detection with FusionCatcher
+    //
+    if (!params.skip_fusioncatcher && params.fusioncatcher_db) {
+        ch_fusioncatcher_db = channel.value([ [:], file(params.fusioncatcher_db, checkIfExists: true) ])
+        FUSIONCATCHER_FUSIONCATCHER (
+            ch_strand_inferred_filtered_fastq,
+            ch_fusioncatcher_db
+        )
+    }
 
     // Seed the bundle with every input sample — fastq branch and pre-aligned
     // BAM branch — so both paths can accumulate per-sample MultiQC
