@@ -11,7 +11,7 @@ include { BAM_SORT_STATS_SAMTOOLS                   } from '../../nf-core/bam_so
 // Function that parses and returns the alignment rate from the STAR log output
 //
 def getStarPercentMapped(_params, align_log) {
-    def percent_aligned = 0
+    def percent_aligned = null
     def pattern = /Uniquely mapped reads %\s*\|\s*([\d\.]+)%/
     align_log.eachLine { line ->
         def matcher = line =~ pattern

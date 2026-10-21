@@ -1,6 +1,6 @@
 process KRAKEN2_KRAKEN2 {
     tag "$meta.id"
-    label 'process_high_memory'
+    label 'process_highmem_medium'
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container ?

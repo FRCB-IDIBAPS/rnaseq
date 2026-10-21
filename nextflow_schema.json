@@ -884,6 +884,11 @@
                     "fa_icon": "fas fa-fast-forward",
                     "description": "Skip additional featureCounts process for biotype QC. Has no effect under `--use_rustqc` (experimental)."
                 },
+                "skip_featurecounts_qc": {
+                    "type": "boolean",
+                    "fa_icon": "fas fa-fast-forward",
+                    "description": "Skip the gene_id-grouped featureCounts QC subworkflow and its report. Independent of --skip_qc/--use_rustqc/--skip_biotype_qc."
+                },
                 "skip_deseq2_qc": {
                     "type": "boolean",
                     "default": false,

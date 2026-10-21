@@ -18,6 +18,7 @@ include { RUSTQC                              } from '../../modules/nf-core/rust
 include { ALIGN_STAR                            } from '../../subworkflows/local/align_star'
 include { ALIGN_BOWTIE2                         } from '../../subworkflows/local/align_bowtie2'
 include { MULTIQC_RNASEQ                        } from '../../subworkflows/local/multiqc_rnaseq'
+include { FEATURECOUNTS_QC                      } from '../../subworkflows/local/featurecounts_qc'
 include { BAM_QC_RNASEQ                         } from '../../subworkflows/nf-core/bam_qc_rnaseq'
 include { QUANTIFY_RSEM                         } from '../../subworkflows/nf-core/quantify_rsem'
 include { BAM_DEDUP_UMI                         } from '../../subworkflows/nf-core/bam_dedup_umi'
@@ -275,7 +276,8 @@ workflow RNASEQ {
     if (!params.skip_fusioncatcher && params.fusioncatcher_db) {
         ch_fusioncatcher_db = channel.value([ [:], file(params.fusioncatcher_db, checkIfExists: true) ])
         FUSIONCATCHER_FUSIONCATCHER (
-            ch_strand_inferred_filtered_fastq,
+            ch_strand_inferred_filtered_fastq
+                .filter { meta, _fastqs -> !file("${params.outdir}/fusioncatcher/log/${meta.id}.log").exists() },
             ch_fusioncatcher_db
         )
     }
@@ -674,6 +676,18 @@ workflow RNASEQ {
             ch_mqc_per_sample_bundle = ch_mqc_per_sample_bundle
                 .join(ch_bam_qc_rnaseq_bundle, remainder: true)
         }
+    }
+
+    //
+    // SUBWORKFLOW: gene_id-grouped featureCounts + custom QC report.
+    // Independent of --skip_qc/--use_rustqc/--skip_biotype_qc — the biotype-QC
+    // featureCounts run above groups by gene_biotype and can't substitute for it.
+    //
+    if (!params.skip_featurecounts_qc) {
+        FEATURECOUNTS_QC (
+            ch_genome_bam,
+            ch_gtf
+        )
     }
 
     //

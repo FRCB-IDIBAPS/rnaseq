@@ -1,0 +1,8 @@
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - conda-forge::r-base=4.4.2
+  - conda-forge::r-data.table=1.16.4
+  - conda-forge::r-ggplot2=3.5.1
+  - conda-forge::r-rcolorbrewer=1.1_3

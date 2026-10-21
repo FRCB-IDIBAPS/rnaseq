@@ -886,6 +886,23 @@ The [Preseq](http://smithlabresearch.org/software/preseq/) package is aimed at p
 
 ![MultiQC - featureCounts biotypes plot](images/mqc_featurecounts_biotype.png)
 
+#### featureCounts gene-level QC report
+
+<details markdown="1">
+<summary>Output files</summary>
+
+- `<ALIGNER>/featurecounts/qc/`
+  - `*.featureCounts.tsv`: per-sample featureCounts output grouped by `gene_id` (not biotype).
+  - `*.featureCounts.tsv.summary`: featureCounts summary file for the same run.
+  - `merged_counts.tsv`: gene x sample count matrix built from the per-sample files above.
+  - `qc_metrics.tsv`: per-sample library size, detected genes, top-50-gene fraction and assignment rate.
+  - `pca_scores.tsv`: PC1-PC5 scores per sample.
+  - `qc_report.pdf`, `*.png`: PCA and library-QC plots (library size, detected genes, count distributions, sample correlation, top-gene fraction, assignment rates, PCA, scree plot).
+
+</details>
+
+This is a separate, independent featureCounts run (grouped by `gene_id`) that feeds a custom QC report (`bin/featurecounts_report.R`), unrelated to the biotype-composition run above. It is not gated by `--skip_qc`/`--use_rustqc`/`--skip_biotype_qc` — only by `--skip_featurecounts_qc`. Sample colouring in the plots is inferred purely from string similarity between sample labels (no design/condition metadata is used), so it's a readability aid rather than a stand-in for a real experimental design. As with the biotype-QC run above, featureCounts here is used for QC purposes only, not as this pipeline's gene-expression quantifier (see [Quantification options](usage.md#quantification-options) for why Salmon/RSEM are used instead).
+
 ### DESeq2
 
 <details markdown="1">

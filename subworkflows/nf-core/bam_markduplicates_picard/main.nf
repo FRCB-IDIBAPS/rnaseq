@@ -30,7 +30,7 @@ workflow BAM_MARKDUPLICATES_PICARD {
         .join(PICARD_MARKDUPLICATES.out.metrics, remainder: true)
         .map { row -> [row[0], row.drop(1).findAll { f -> f != null }.collectMany { e -> (e instanceof List) ? e : [e] }] }
 
-    PICARD_COLLECTRNASEQMETRICS ( ch_markdup, ch_fasta_fai, ch_flatfile, ch_rrna_intervals)
+    PICARD_COLLECTRNASEQMETRICS ( ch_markdup, ch_fasta_fai.map { meta, fasta, _fai -> [meta, fasta] }, ch_flatfile, ch_rrna_intervals)
     emit:
     bam                   = PICARD_MARKDUPLICATES.out.bam // channel: [ val(meta), path(bam) ]
     cram                  = PICARD_MARKDUPLICATES.out.cram // channel: [ val(meta), path(cram) ]
