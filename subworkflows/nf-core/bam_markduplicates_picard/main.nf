@@ -28,7 +28,7 @@ workflow BAM_MARKDUPLICATES_PICARD {
         .join(BAM_STATS_SAMTOOLS.out.flagstat,   remainder: true)
         .join(BAM_STATS_SAMTOOLS.out.idxstats,   remainder: true)
         .join(PICARD_MARKDUPLICATES.out.metrics, remainder: true)
-        .map { row -> [row[0], row.drop(1).findAll { it != null }.collectMany { e -> (e instanceof List) ? e : [e] }] }
+        .map { row -> [row[0], row.drop(1).findAll { f -> f != null }.collectMany { e -> (e instanceof List) ? e : [e] }] }
 
     PICARD_COLLECTRNASEQMETRICS ( ch_markdup, ch_fasta_fai, ch_flatfile, ch_rrna_intervals)
     emit:
